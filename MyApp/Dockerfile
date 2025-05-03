@@ -1,22 +1,28 @@
-# Stage 1: Build
+# --- Stage 1: Build the .NET backend ---
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /app
 
-# Copy csproj and restore as distinct layers
-COPY *.csproj ./
+WORKDIR /src
+COPY . .
+
+# Restore dependencies and build the app
 RUN dotnet restore
+RUN dotnet publish -c Release -o /app/publish
 
-# Copy everything and build
-COPY . ./
-RUN dotnet publish -c Release -o /out
+# --- Stage 2: Run the migration command ---
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS migration
 
-# Stage 2: Runtime
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
+WORKDIR /src
+COPY --from=build /app/publish /app/publish
+
+# Run migrations
+ENTRYPOINT ["dotnet", "ef", "database", "update"]
+
+# --- Stage 3: Final runtime image ---
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
+
 WORKDIR /app
-COPY --from=build /out .
+COPY --from=build /app/publish /app
 
-# Expose port (match your launchSettings port or override with docker run)
-EXPOSE 8080
+EXPOSE 80
 
-# Run the app
 ENTRYPOINT ["dotnet", "MyApp.dll"]
