@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "Login Page";
+}
+
+<div class="text-center">
+    <h1>Login</h1>
+    <form method="post" action="/Account/Login">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" name="username" id="username" required />
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" required />
+        </div>
+        <div>
+            <button type="submit">Login</button>
+        </div>
+    </form>
+    <p>Don't have an account? <a href="/Account/Register">Register here</a></p>
+</div>

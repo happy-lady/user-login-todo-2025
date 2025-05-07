@@ -1,16 +1,16 @@
 services:
-  myapp:
-    image: myappimage
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "8080:8080"
-    depends_on:
-      - db
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Host=db;Port=5433;Username=postgres;Password=Your_password123;Database=MyAppDb;
+  # # myapp:
+  #   image: myappimage
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "8080:8080"
+  #   depends_on:
+  #     - db
+  #   environment:
+  #     - ASPNETCORE_ENVIRONMENT=Development
+  #     - ConnectionStrings__DefaultConnection=Host=db;Port=5433;Username=postgres;Password=Your_password123;Database=MyAppDb;
   
   db:
     image: postgres:latest

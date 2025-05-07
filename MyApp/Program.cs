@@ -13,6 +13,8 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
+string environmentValue = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+string environmentValue2 = Environment.GetEnvironmentVariable("testvar");
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -27,6 +29,13 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseEndpoints(endpoints =>
+{
+    _ = endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+});
 
 app.MapControllerRoute(
     name: "default",
