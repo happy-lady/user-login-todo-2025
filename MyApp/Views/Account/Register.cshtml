@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Register Page";
+}
+
+<div class="text-center">
+    <h1>Register</h1>
+    <form method="post" action="/Account/Register">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" name="username" id="username" required />
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" required />
+        </div>
+        <div>
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" name="confirmPassword" id="confirmPassword" required />
+        </div>
+        <div>
+            <button type="submit">Register</button>
+        </div>
+    </form>
+    <p>Already have an account? <a href="/Account/Login">Login here</a></p>
+</div>
